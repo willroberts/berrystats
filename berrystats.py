@@ -51,16 +51,20 @@ def get_memory_info():
     memory_file = open("/proc/meminfo", "r").read().strip().split("\n")
     memory_data = {}
     for entry in memory_file:
-        fields = entry.split()
-        key = fields[0][:-1]
-        val = fields[1]
-        memory_data[key] = val
+        if "Total" or "Free" in entry:
+            fields = entry.split()
+            key = fields[0][:-1]
+            val = fields[1]
+            memory_data[key] = val
+
     memory_total = int(memory_data["MemTotal"]) / 1024
     memory_free = int(memory_data["MemFree"]) / 1024
     memory_used = (memory_total - memory_free)
+
     swap_total = int(memory_data["SwapTotal"]) / 1024
     swap_free = int(memory_data["SwapFree"]) / 1024
     swap_used = (swap_total - swap_free)
+
     memory_string = "%dm of %dm" % (memory_used, memory_total)
     swap_string = "%dm of %dm" % (swap_used, swap_total)
     return memory_string, swap_string
