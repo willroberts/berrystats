@@ -73,7 +73,7 @@ Installation
 
     $ python /srv/http/flask/start-server.py
 
-**Warning: Never run web apps as the root user!**
+**Warning: Never run web apps as the root user!** For best results, run the web app as the same user as Nginx (usually "http").
 
 Troubleshooting / Debugging
 ---------------------------
