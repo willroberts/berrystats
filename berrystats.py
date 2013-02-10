@@ -78,7 +78,7 @@ def berrystats():
     timer = start_timer()
     t = strftime("%Y-%m-%d %H:%M:%S")
     ms = stop_timer(timer)
-    log("\n==== %s ====" % t)
+    log("==== %s ====" % t)
 
     # get the system uptime
     timer = start_timer()
@@ -102,7 +102,7 @@ def berrystats():
     timer = start_timer()
     content = render_template("berrystats.html", time=t, uptime=u, load=l, memory=m, swap=s, counter=c)
     ms = stop_timer(timer)
-    log("Rendering Jinja2 template took %.2fms" % ms)
+    log("Rendering Jinja2 template took %.2fms\n" % ms)
 
     # return the content to the fcgi socket
     return content
