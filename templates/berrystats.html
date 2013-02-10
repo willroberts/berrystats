@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <title>berrystats</title>
+  <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet" type="text/css" />
+  <style type="text/css">
+   body { padding-left: 8px; font: 14px "Source Sans Pro" }
+   a { color: green; text-decoration: none }
+  </style>
+ </head>
+
+ <body>
+  <p>berrystats is online.</p>
+  <p>current time: {{ time }}</p>
+  <p>system uptime: {{ uptime }}</p>
+  <p>requests since last boot: {{ counter }}</p>
+  <p>load averages: {{ load }}</p>
+  <p>memory usage: {{ memory }}</p>
+  <p>swap usage: {{ swap }}</p>
+ </body>
+</html>
