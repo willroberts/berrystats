@@ -15,6 +15,7 @@ Sample Output:
     load averages: 0.00 0.01 0.04
     memory usage: 81m of 209m
     swap usage: 0m of 210m
+    disk usage: 2.6g of 14.5g
 
 HTML:
 
@@ -31,12 +32,13 @@ HTML:
 
      <body>
       <p>berrystats is online.</p>
-      <p>current time: 2013-02-09 14:02:26</p>
-      <p>system uptime: 0 days, 1 hours, 38 minutes</p>
+      <p>current time: 2013-02-09 19:02:46</p>
+      <p>system uptime: 0 days, 2 hours, 13 minutes</p>
       <p>requests since last boot: 21</p>
-      <p>load averages: 0.00 0.02 0.05</p>
-      <p>memory usage: 88m of 209m</p>
+      <p>load averages: 0.00 0.01 0.04</p>
+      <p>memory usage: 81m of 209m</p>
       <p>swap usage: 0m of 210m</p>
+      <p>disk usage: 2.6g of 14.5g</p>
      </body>
     </html>
 
@@ -47,15 +49,6 @@ Installation
 
     $ git clone https://github.com/willroberts/berrystats.git
     $ cd berrystats
-
-**Set up /etc/rc.local (to clear the hit counter on boot):**
-
-    $ sudo cat rc.local >> /etc/rc.local
-
-**Enable systemd service (not required for init systems):**
-
-    $ sudo cat rc-local.service > /etc/systemd/system/rc-local.service
-    $ sudo systemctl enable rc-local.service
 
 **Manually include the options from nginx.conf in your /etc/nginx/nginx.conf.**
 

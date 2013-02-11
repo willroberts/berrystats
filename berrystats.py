@@ -2,9 +2,11 @@
 
 from datetime import datetime
 from flask import Flask, render_template
+from os import statvfs
 from time import strftime
 
 
+"""
 def log(line):
     log = open("logs/requests.log", "a")
     log.write(line)
@@ -19,6 +21,7 @@ def stop_timer(timer):
     now = datetime.now()
     milliseconds = (now - timer).total_seconds() * 1000
     return milliseconds
+"""
 
 def increment_counter():
     try:
@@ -34,6 +37,11 @@ def increment_counter():
     counter.close()
     return count
 
+def reset_counter():
+    counter = open("data/counter", "w")
+    counter.write("0")
+    counter.close()
+
 def get_uptime():
     uptime_seconds = float(open("/proc/uptime", "r").read().strip().split()[0])
     uptime_days, remainder = divmod(uptime_seconds, 86400)
@@ -47,7 +55,7 @@ def get_load():
     load_string = "%s %s %s" % (load[0], load[1], load[2])
     return load_string
 
-def get_memory_info():
+def get_memory_usage():
     memory_file = open("/proc/meminfo", "r").read().strip().split("\n")
     memory_data = {}
     for entry in memory_file:
@@ -69,44 +77,33 @@ def get_memory_info():
     swap_string = "%dm of %dm" % (swap_used, swap_total)
     return memory_string, swap_string
 
+def get_disk_usage():
+    disk_stats = statvfs("/")
+    mb_total = float(disk_stats.f_blocks * disk_stats.f_bsize) / 1048576
+    mb_free = float(disk_stats.f_bavail * disk_stats.f_frsize) / 1048576
+    mb_used = (mb_total - mb_free)
+    gb_used = mb_used / 1024
+    gb_total = mb_total / 1024
+    return "%.1fg of %.1fg" % (gb_used, gb_total)
+
+reset_counter()
+
 app = Flask(__name__)
 @app.route('/')
 def berrystats():
 
     # increment the counter
-    timer = start_timer()
     c = increment_counter()
-    ms = stop_timer(timer)
 
-    # get the current date and time
-    timer = start_timer()
+    # get our current stats
     t = strftime("%Y-%m-%d %H:%M:%S")
-    ms = stop_timer(timer)
-    log("==== %s ====" % t)
-
-    # get the system uptime
-    timer = start_timer()
     u = get_uptime()
-    ms = stop_timer(timer)
-    log("Reading uptime took %.2fms" % ms)
-
-    # get load info 
-    timer = start_timer()
     l = get_load()
-    ms = stop_timer(timer)
-    log("Reading load averages took %.2fms" % ms)
-
-    # get memory info
-    timer = start_timer()
-    m, s = get_memory_info()
-    ms = stop_timer(timer)
-    log("Reading memory info took %.2fms" % ms)
+    m, s = get_memory_usage()
+    d = get_disk_usage()
 
     # pass the content to the template renderer
-    timer = start_timer()
-    content = render_template("berrystats.html", time=t, uptime=u, load=l, memory=m, swap=s, counter=c)
-    ms = stop_timer(timer)
-    log("Rendering Jinja2 template took %.2fms\n" % ms)
+    content = render_template("berrystats.html", time=t, uptime=u, counter=c, load=l, memory=m, swap=s, disk=d)
 
     # return the content to the fcgi socket
     return content
