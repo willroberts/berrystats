@@ -8,39 +8,9 @@ This was developed on Arch, but should run on any recent Linux distribution.
 
 Sample Output:
 
-    berrystats is online.
-    current time: 2013-02-09 19:02:46
-    system uptime: 0 days, 2 hours, 13 minutes
-    requests since last boot: 21
-    load averages: 0.00 0.01 0.04
-    memory usage: 81m of 209m
-    swap usage: 0m of 210m
-    disk usage: 2.6g of 14.5g
-
-HTML:
-
-    <!DOCTYPE html>
-    <html>
-     <head>
-      <title>berrystats</title>
-      <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet" type="text/css" />
-      <style type="text/css">
-       body { padding-left: 8px; font: 14px "Source Sans Pro" }
-       a { color: green; text-decoration: none }
-      </style>
-     </head>
-
-     <body>
-      <p>berrystats is online.</p>
-      <p>current time: 2013-02-09 19:02:46</p>
-      <p>system uptime: 0 days, 2 hours, 13 minutes</p>
-      <p>requests since last boot: 21</p>
-      <p>load averages: 0.00 0.01 0.04</p>
-      <p>memory usage: 81m of 209m</p>
-      <p>swap usage: 0m of 210m</p>
-      <p>disk usage: 2.6g of 14.5g</p>
-     </body>
-    </html>
+![Home page](willroberts.github.com/berrystats/templates/preview_home.png)
+![System page](willroberts.github.com/berrystats/templates/preview_system.png)
+![About page](willroberts.github.com/berrystats/templates/preview_about.png)
 
 Installation
 ------------
