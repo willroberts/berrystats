@@ -8,11 +8,11 @@ This was developed on Arch, but should run on any recent Linux distribution.
 
 Sample Output:
 
-![Home page](https://raw.github.com/willroberts/berrystats/master/templates/preview_home.png)
+![Home page](https://raw.github.com/willroberts/berrystats/master/resources/preview_home.png)
 
-![System page](https://raw.github.com/willroberts/berrystats/master/templates/preview_system.png)
+![System page](https://raw.github.com/willroberts/berrystats/master/resources/preview_system.png)
 
-![About page](https://raw.github.com/willroberts/berrystats/master/templates/preview_about.png)
+![About page](https://raw.github.com/willroberts/berrystats/master/resources/preview_about.png)
 
 Installation
 ------------
