@@ -1,7 +1,7 @@
 berrystats
 ==========
 
-berrystats is a tiny (160kb!) Flask/Jinja2 web app to report various stats about a Raspberry Pi running Linux.
+berrystats is a tiny (12kb!) Flask/Jinja2 web app to report various stats about a Raspberry Pi running Linux.
 This was developed on Arch, but should run on any recent Linux distribution.
 
 **Requires: Nginx, Python 2, Flask, Jinja 2, Flup, and about 11MB of RAM**
