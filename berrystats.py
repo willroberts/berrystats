@@ -45,7 +45,7 @@ def get_distribution():
     distribution = issue_file.split("\\")[0].strip()
     return distribution
 
-def get_kernel_version()
+def get_kernel_version():
     kernel_version = open("/proc/sys/kernel/osrelease", "r").read().strip()
     return kernel_version
 
