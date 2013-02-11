@@ -24,9 +24,8 @@ def stop_timer(timer):
 """
 
 def update_counter(count):
-    counter = open("data/counter", "w")
-    counter.write(count)
-    counter.close()
+    with open("data/counter", "w") as counter:
+        counter.write(count)
 
 def increment_counter():
     try:
