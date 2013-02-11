@@ -7,12 +7,15 @@ This was developed on Arch, but should run on any recent Linux distribution.
 **Requires: Nginx, Python 2, Flask, Jinja 2, Flup, and about 11MB of RAM**
 
 Home page (now shows kernel version as well):
+
 ![Home page](https://raw.github.com/willroberts/berrystats/master/resources/preview_home.png)
 
 System page
+
 ![System page](https://raw.github.com/willroberts/berrystats/master/resources/preview_system.png)
 
 About page
+
 ![About page](https://raw.github.com/willroberts/berrystats/master/resources/preview_about.png)
 
 Installation
