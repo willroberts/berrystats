@@ -19,4 +19,4 @@ if __name__ == "__main__":
     print("Started!")
 
     # run the app
-    WSGIServer(app, bindAddress="/srv/http/flask/data/flup.sock").run()
+    WSGIServer(app, bindAddress="/srv/http/berrystats/data/flup.sock").run()

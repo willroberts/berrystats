@@ -61,16 +61,16 @@ Debian:
 
 **Install the web application to /srv/http**
 
-    $ sudo mv flask /srv/http/flask
+    $ sudo mv berrystats /srv/http/berrystats
 
 **Run the web application:**
 
 Arch:
 
-    $ sudo -u http python2 /srv/http/flask/start-server.py
+    $ sudo -u http python2 /srv/http/berrystats/start-server.py
 
 Debian:
 
-    $ sudo -u www-data python /srv/http/flask/start-server.py
+    $ sudo -u www-data python /srv/http/berrystats/start-server.py
 
 **Warning: Never run web apps as the root user!** For best results, run the web app as the same user as Nginx (usually "http" or "www-data").
