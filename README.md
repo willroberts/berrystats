@@ -17,6 +17,8 @@ Sample Output:
 Installation
 ------------
 
+**Install dependencies.**
+
 **Get the code:**
 
     $ git clone https://github.com/willroberts/berrystats.git
@@ -37,12 +39,3 @@ Installation
     $ python /srv/http/flask/start-server.py
 
 **Warning: Never run web apps as the root user!** For best results, run the web app as the same user as Nginx (usually "http").
-
-Troubleshooting / Debugging
----------------------------
-
-You can see debug messages for the web application by running berrystats.py directly:
-
-    $ python /srv/http/flask/berrystats.py &
-    * Running on http://127.0.0.1:5000/
-    $ curl localhost:5000
