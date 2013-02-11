@@ -4,9 +4,14 @@
   <title>berrystats</title>
   <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet" type="text/css" />
   <link href="style.css" rel="stylesheet" type="text/css" />
+  <script type="text/javascript">
+   function timedRefresh() {
+    setTimeout("location.reload(true);",5000); }
+  </script>
  </head>
 
- <body>
+ <body onload="javascript:timedRefresh();">
+
   <div id="title">
    <h1>berrystats</h1>
   </div>
