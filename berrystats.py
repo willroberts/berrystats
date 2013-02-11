@@ -45,6 +45,10 @@ def get_distribution():
     distribution = issue_file.split("\\")[0].strip()
     return distribution
 
+def get_kernel_version()
+    kernel_version = open("/proc/sys/kernel/osrelease", "r").read().strip()
+    return kernel_version
+
 def get_uptime():
     up_data = open("/proc/uptime", "r").read().strip()
     up_s = float(up_data.split()[0])
@@ -102,12 +106,14 @@ def home_page():
     # get general data
     time = strftime("%Y-%m-%d %H:%M:%S")
     distribution = get_distribution()
+    kernel = get_kernel_version()
     uptime = get_uptime()
 
     # pass the content to the template renderer
     content = render_template("home_page.html",
         time=time,
         distribution=distribution,
+        kernel=kernel,
         uptime=uptime,
         counter=counter)
 
