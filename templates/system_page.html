@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <title>berrystats</title>
+  <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet" type="text/css" />
+  <link href="style.css" rel="stylesheet" type="text/css" />
+ </head>
+
+ <body>
+  <div id="title">
+   <h1>berrystats</h1>
+  </div>
+
+  <div id="nav">
+   <a class="active" href="/">home</a>
+   <a href="/system">system</a>
+   <a href="/about">about</a>
+  </div>
+
+  <div id="logo">
+   <img src="berry.png" />
+  </div>
+
+  <div id="body">
+   <div id="keys">
+    <p>Load averages:</p>
+    <p>Memory usage:</p>
+    <p>Swap usage:</p>
+    <p>Disk usage:</p>
+   </div>
+   <div id="values">
+    <p>{{ load }}</p>
+    <p>{{ memory }}</p>
+    <p>{{ swap }}</p>
+    <p>{{ disk }}</p>
+   </div>
+  </div>
+ </body>
+</html>

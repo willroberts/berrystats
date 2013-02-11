@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 from datetime import datetime
-from flask import Flask, render_template
+from flask import Flask, render_template, send_file
 from os import statvfs
 from time import strftime
 
@@ -39,6 +39,11 @@ def increment_counter():
         count = 1
     update_counter(str(count))
     return count
+
+def get_distribution():
+    issue_file = open("/etc/issue", "r").read().strip()
+    distribution = issue_file.split("\\")[0].strip()
+    return distribution
 
 def get_uptime():
     up_data = open("/proc/uptime", "r").read().strip()
@@ -89,30 +94,62 @@ update_counter("0")
 
 app = Flask(__name__)
 @app.route('/')
-def berrystats():
+def home_page():
 
     # increment the counter
-    c = increment_counter()
+    counter = increment_counter()
 
-    # get our current stats
-    t = strftime("%Y-%m-%d %H:%M:%S")
-    u = get_uptime()
-    l = get_load()
-    m, s = get_memory_usage()
-    d = get_disk_usage()
+    # get general data
+    time = strftime("%Y-%m-%d %H:%M:%S")
+    distribution = get_distribution()
+    uptime = get_uptime()
 
     # pass the content to the template renderer
-    content = render_template("berrystats.html",
-        time=t,
-        uptime=u,
-        counter=c,
-        load=l,
-        memory=m,
-        swap=s,
-        disk=d)
+    content = render_template("home_page.html",
+        time=time,
+        distribution=distribution,
+        uptime=uptime,
+        counter=counter)
 
     # return the content to the fcgi socket
     return content
+
+@app.route("/system")
+def system_page():
+
+    # increment the counter
+    counter = increment_counter()
+
+    # get system data
+    load = get_load()
+    memory, swap = get_memory_usage()
+    disk = get_disk_usage()
+
+    content = render_template("system_page.html",
+        load=load,
+        memory=memory,
+        swap=swap,
+        disk=disk)
+
+    return content
+
+@app.route("/about")
+def about_page():
+
+    # increment the counter
+    counter = increment_counter()
+
+    content = render_template("about_page.html")
+
+    return content
+
+@app.route("/style.css")
+def style_page():
+    return send_file("templates/style.css", mimetype="text/css")
+
+@app.route("/berry.png")
+def berry_image():
+    return send_file("templates/berry.png", mimetype="image/png")
 
 if __name__ == '__main__':
     app.run(debug=True)

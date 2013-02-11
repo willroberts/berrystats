@@ -1,0 +1,43 @@
+body { margin: 0;
+    font: 14px "Source Sans Pro" }
+
+h1 { color: #d34347;
+    font: 28px "Source Sans Pro";
+    margin: 0px;
+    text-align: center;
+    line-height: 59px }
+
+a { color: #d34347;
+    text-decoration: none;
+    font: 18px "Source Sans Pro";
+    margin-right: 20px;
+    line-height: 62px }
+
+a.inline { font-size: 14px ;
+    margin: 0px;
+    line-height: 0px }}
+
+a.active { border-bottom: 2px solid #d34347 }
+
+p { margin: 0px }
+
+img { margin: 8px }
+
+#title { width: 192px;
+    height: 64px;
+    float: left }
+
+#nav { width: 576px;
+    height: 64px; }
+
+#logo { width: 192px;
+    height: 96px;
+    float: left;
+    clear: both;
+    text-align: center }
+
+#body { width: 576px;
+    height: 96px }
+
+#keys { float: left;
+    margin-right: 20px }
