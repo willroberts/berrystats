@@ -48,9 +48,8 @@ Installation
 **Get the code:**
 
     $ git clone https://github.com/willroberts/berrystats.git
-    $ cd berrystats
 
-**Manually include the options from nginx.conf in your /etc/nginx/nginx.conf.**
+**Manually include the options from resources/nginx.conf in your /etc/nginx/nginx.conf.**
 
 **Enable and start Nginx:**
 
@@ -59,8 +58,7 @@ Installation
 
 **Install the web application to /srv/http**
 
-    $ sudo mkdir -p /srv/http
-    $ sudo cp -a flask /srv/http/
+    $ sudo mv flask /srv/http/flask
 
 **Run the web application:**
 
