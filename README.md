@@ -23,13 +23,31 @@ Installation
 
 **Install dependencies.**
 
+Arch instructions:
+
+    $ sudo pacman -S nginx
+    $ sudo pacman -S python2
+    $ sudo pacman -S python2-distribute
+    $ sudo easy_install-2.7 pip
+    $ sudo pip install flask # also installs jinja2
+    $ sudo pip install flup
+
+Debian instructions:
+
+    $ sudo apt-get install nginx
+    $ sudo apt-get install python
+    $ sudo apt-get install python-setuptools
+    $ sudo easy_install pip
+    $ sudo pip install flask # also installs jinja2
+    $ sudo pip install flup
+
 **Get the code:**
 
     $ git clone https://github.com/willroberts/berrystats.git
 
 **Manually include the options from resources/nginx.conf in your /etc/nginx/nginx.conf.**
 
-**Enable and start Nginx:**
+**Enable and start Nginx (Arch):**
 
     $ sudo systemctl enable nginx.service
     $ sudo systemctl start nginx.service
@@ -38,8 +56,8 @@ Installation
 
     $ sudo mv flask /srv/http/flask
 
-**Run the web application:**
+**Run the web application (Arch):**
 
-    $ python /srv/http/flask/start-server.py
+    $ sudo -u http python2 /srv/http/flask/start-server.py
 
 **Warning: Never run web apps as the root user!** For best results, run the web app as the same user as Nginx (usually "http").
