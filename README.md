@@ -9,7 +9,9 @@ This was developed on Arch, but should run on any recent Linux distribution.
 Sample Output:
 
 ![Home page](https://raw.github.com/willroberts/berrystats/master/templates/preview_home.png)
+
 ![System page](https://raw.github.com/willroberts/berrystats/master/templates/preview_system.png)
+
 ![About page](https://raw.github.com/willroberts/berrystats/master/templates/preview_about.png)
 
 Installation
