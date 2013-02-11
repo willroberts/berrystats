@@ -23,6 +23,11 @@ def stop_timer(timer):
     return milliseconds
 """
 
+def update_counter(count):
+    counter = open("data/counter", "w")
+    counter.write(count)
+    counter.close()
+
 def increment_counter():
     try:
         existing_count = open("data/counter", "r").read()
@@ -32,23 +37,17 @@ def increment_counter():
             count = int(existing_count) + 1
     except IOError:
         count = 1
-    counter = open("data/counter", "w")
-    counter.write(str(count))
-    counter.close()
+    update_counter(str(count))
     return count
 
-def reset_counter():
-    counter = open("data/counter", "w")
-    counter.write("0")
-    counter.close()
-
 def get_uptime():
-    uptime_seconds = float(open("/proc/uptime", "r").read().strip().split()[0])
-    uptime_days, remainder = divmod(uptime_seconds, 86400)
-    uptime_hours, remainder = divmod(remainder, 3600)
-    uptime_minutes, remainder = divmod(remainder, 60)
-    uptime_string = "%d days, %d hours, %d minutes" % (int(uptime_days), int(uptime_hours), int(uptime_minutes))
-    return uptime_string
+    up_data = open("/proc/uptime", "r").read().strip()
+    up_s = float(up_data.split()[0])
+    up_d, remainder = divmod(up_s, 86400)
+    up_h, remainder = divmod(remainder, 3600)
+    up_m, remainder = divmod(remainder, 60)
+    up_string = "%d days, %d hours, %d minutes" % (int(up_d), int(up_h), int(up_m))
+    return up_string
 
 def get_load():
     load = open("/proc/loadavg", "r").read().strip().split()
@@ -86,7 +85,7 @@ def get_disk_usage():
     gb_total = mb_total / 1024
     return "%.1fg of %.1fg" % (gb_used, gb_total)
 
-reset_counter()
+update_counter("0")
 
 app = Flask(__name__)
 @app.route('/')
@@ -103,7 +102,14 @@ def berrystats():
     d = get_disk_usage()
 
     # pass the content to the template renderer
-    content = render_template("berrystats.html", time=t, uptime=u, counter=c, load=l, memory=m, swap=s, disk=d)
+    content = render_template("berrystats.html",
+        time=t,
+        uptime=u,
+        counter=c,
+        load=l,
+        memory=m,
+        swap=s,
+        disk=d)
 
     # return the content to the fcgi socket
     return content
