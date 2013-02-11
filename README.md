@@ -8,9 +8,9 @@ This was developed on Arch, but should run on any recent Linux distribution.
 
 Sample Output:
 
-![Home page](willroberts.github.com/berrystats/templates/preview_home.png)
-![System page](willroberts.github.com/berrystats/templates/preview_system.png)
-![About page](willroberts.github.com/berrystats/templates/preview_about.png)
+![Home page](https://raw.github.com/willroberts/berrystats/master/templates/preview_home.png)
+![System page](https://raw.github.com/willroberts/berrystats/master/templates/preview_system.png)
+![About page](https://raw.github.com/willroberts/berrystats/master/templates/preview_about.png)
 
 Installation
 ------------
