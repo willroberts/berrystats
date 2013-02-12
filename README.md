@@ -21,9 +21,9 @@ About page
 Installation
 ------------
 
-**Install dependencies.**
+**Install dependencies:**
 
-Arch instructions:
+Arch:
 
     $ sudo pacman -S nginx
     $ sudo pacman -S python2
@@ -32,7 +32,7 @@ Arch instructions:
     $ sudo pip install flask # also installs jinja2
     $ sudo pip install flup
 
-Debian instructions:
+Debian:
 
     $ sudo apt-get install nginx
     $ sudo apt-get install python
@@ -74,17 +74,30 @@ Debian instructions:
         }
     }
 
-**Enable and start Nginx (Arch):**
+**Enable and start Nginx:**
+
+Arch:
 
     $ sudo systemctl enable nginx.service
     $ sudo systemctl start nginx.service
 
+Debian:
+
+    $ sudo update-rc.d nginx enable
+    $ sudo /etc/init.d/nginx start
+
 **Install the web application to /srv/http**
 
-    $ sudo mv flask /srv/http/flask
+    $ sudo mv berrystats /srv/http/berrystats
 
-**Run the web application (Arch):**
+**Run the web application:**
 
-    $ sudo -u http python2 /srv/http/flask/start-server.py
+Arch:
 
-**Warning: Never run web apps as the root user!** For best results, run the web app as the same user as Nginx (usually "http").
+    $ sudo -u http python2 /srv/http/berrystats/start-server.py
+
+Debian:
+
+    $ sudo -u www-data python /srv/http/berrystats/start-server.py
+
+**Warning: Never run web apps as the root user!** For best results, run the web app as the same user as Nginx (usually "http" or "www-data").

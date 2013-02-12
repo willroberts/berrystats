@@ -1,8 +1,9 @@
 #!/usr/bin/env python
 
+import os
+
 from datetime import datetime
 from flask import Flask, render_template, send_file
-from os import statvfs
 from time import strftime
 
 
@@ -85,15 +86,13 @@ def get_memory_usage():
     return memory_string, swap_string
 
 def get_disk_usage():
-    disk_stats = statvfs("/")
+    disk_stats = os.statvfs("/")
     mb_total = float(disk_stats.f_blocks * disk_stats.f_bsize) / 1048576
     mb_free = float(disk_stats.f_bavail * disk_stats.f_frsize) / 1048576
     mb_used = (mb_total - mb_free)
     gb_used = mb_used / 1024
     gb_total = mb_total / 1024
     return "%.1fg of %.1fg" % (gb_used, gb_total)
-
-update_counter("0")
 
 app = Flask(__name__)
 @app.route('/')
@@ -157,4 +156,14 @@ def berry_image():
     return send_file("templates/berry.png", mimetype="image/png")
 
 if __name__ == '__main__':
+
+    # create required directories (only matters when berrystats.py is called directly)
+    for directory in ["data", "logs"]:
+        if not os.path.exists(directory):
+            os.makedirs(directory)
+
+    # reset the counter
+    update_counter("0")
+
+    # run the web app
     app.run(debug=True)
