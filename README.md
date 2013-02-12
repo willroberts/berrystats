@@ -6,6 +6,21 @@ This was developed on Arch, but should run on any recent Linux distribution.
 
 **Requires: Nginx, Python 2, Flask, Jinja 2, Flup, and about 10MB of RAM**
 
+Screenshots
+-----------
+
+Home tab::
+
+![home_page](http://i.imgur.com/kbqRfEj.png)
+
+System tab:
+
+![home_page](http://i.imgur.com/6zz0mty.png)
+
+About tab:
+
+![home_page](http://i.imgur.com/OQircAv.png)
+
 To Do
 -----
 * Add logging for requests, system reports, etc.
