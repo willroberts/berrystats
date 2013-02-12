@@ -1,15 +1,14 @@
 #!/usr/bin/env python
 
 import os
-import datetime
 import flask
 import time
 
 
 def increment_counter():
     try:
-        existing_count = open("data/counter", "r").read()
-        count = int(existing_count) + 1
+        with open("data/counter", "r") as counter:
+            count = int(counter.read()) + 1
     except IOError:
         count = 1
     with open("data/counter", "w") as counter:
@@ -17,33 +16,33 @@ def increment_counter():
     return count
 
 def get_distribution():
-    issue_file = open("/etc/issue", "r").read().strip()
-    distribution = issue_file.split("\\")[0].strip()
-    return distribution
+    with open("/etc/issue", "r") as issue:
+        return issue.read().strip().split("\\")[0].strip()
 
 def get_kernel_version():
-    kernel_version = open("/proc/sys/kernel/osrelease", "r").read().strip()
-    return kernel_version
+    with open("/proc/sys/kernel/osrelease", "r") as kernel_version:
+        return kernel_version.read().strip()
 
 def get_uptime():
-    up_data = open("/proc/uptime", "r").read().strip()
-    up_s = float(up_data.split()[0])
-    up_d, remainder = divmod(up_s, 86400)
-    up_h, remainder = divmod(remainder, 3600)
-    up_m, remainder = divmod(remainder, 60)
-    up_string = "%d days, %d hours, %d minutes" % (int(up_d), int(up_h), int(up_m))
-    return up_string
+    with open("/proc/uptime", "r") as uptime:
+        up_data = uptime.read().strip()
+        up_s = float(up_data.split()[0])
+        up_d, remainder = divmod(up_s, 86400)
+        up_h, remainder = divmod(remainder, 3600)
+        up_m, remainder = divmod(remainder, 60)
+        return "%d days, %d hours, %d minutes" % (int(up_d), int(up_h), int(up_m))
 
 def get_load():
-    load = open("/proc/loadavg", "r").read().strip().split()
-    load_string = "%s %s %s" % (load[0], load[1], load[2])
-    return load_string
+    with open("/proc/loadavg", "r") as loadavg:
+        load = loadavg.read().strip().split()
+        return "%s %s %s" % (load[0], load[1], load[2])
 
 def get_memory_usage():
-    memory_file = open("/proc/meminfo", "r").read().strip().split("\n")
+    with open("/proc/meminfo", "r") as memory:
+        memory_entries = memory.read().strip().split("\n")
     memory_data = {}
-    for entry in memory_file:
-        if "Total" or "Free" in entry:
+    for entry in memory_entries:
+        if any(word in entry for word in ("Total", "Free")):
             fields = entry.split()
             key = fields[0][:-1]
             val = fields[1]
@@ -82,8 +81,6 @@ app = flask.Flask(__name__)
 @app.route('/')
 def home_page():
     counter = increment_counter()
-
-    global _distribution, _kernel
 
     now = time.strftime("%Y-%m-%d %H:%M:%S")
     uptime = get_uptime()
