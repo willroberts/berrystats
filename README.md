@@ -20,8 +20,7 @@ About page
 
 To Do
 -----
-* Enable HTML/CSS scaling when viewing from a mobile device
-* Add comprehensive logging for requests, system reports, etc.
+* Add logging for requests, system reports, etc.
 
 Installation
 ------------
