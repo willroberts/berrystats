@@ -70,65 +70,53 @@ def get_disk_usage():
     gb_total = mb_total / 1024
     return "%.1fg of %.1fg" % (gb_used, gb_total)
 
+# instantiate global variables
+# these two fields will never change, so we only poll them once instead of on every request
+_distribution = get_distribution()
+_kernel = get_kernel_version()
+
 # instantiate flask
 app = flask.Flask(__name__)
 
-# set up routing
+# routing
 @app.route('/')
 def home_page():
-
-    # increment the counter
     counter = increment_counter()
 
-    # get general data
+    global _distribution, _kernel
+
     now = time.strftime("%Y-%m-%d %H:%M:%S")
-    distribution = get_distribution()
-    kernel = get_kernel_version()
     uptime = get_uptime()
 
-    # pass the content to the template renderer
     content = flask.render_template("home_page.html",
         time=now,
-        distribution=distribution,
-        kernel=kernel,
+        distribution=_distribution,
+        kernel=_kernel,
         uptime=uptime,
         counter=counter)
 
-    # return the content to the fcgi socket
     return content
 
 @app.route("/system")
 def system_page():
-
-    # increment the counter
     counter = increment_counter()
 
-    # get system data
     load = get_load()
     memory, swap = get_memory_usage()
     disk = get_disk_usage()
 
-    # pass the content to the template renderer
     content = flask.render_template("system_page.html",
         load=load,
         memory=memory,
         swap=swap,
         disk=disk)
 
-    # return the content to the fcgi socket
     return content
 
 @app.route("/about")
 def about_page():
-
-    # increment the counter
     counter = increment_counter()
-
-    # pass the content to the template renderer
-    content = flask.render_template("about_page.html")
-
-    # return the content to the fcgi socket
-    return content
+    return flask.send_file("templates/about_page.html", mimetype="text/html")
 
 @app.route("/style.css")
 def style_page():
