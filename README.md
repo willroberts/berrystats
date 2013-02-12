@@ -86,7 +86,7 @@ Debian:
     $ sudo update-rc.d nginx enable
     $ sudo /etc/init.d/nginx start
 
-**Install the web application to /srv/http**
+**Install the web application to /srv/http:**
 
     $ sudo mv berrystats /srv/http/berrystats
 
@@ -100,4 +100,6 @@ Debian:
 
     $ sudo -u www-data python /srv/http/berrystats/start-server.py
 
-**Warning: Never run web apps as the root user!** For best results, run the web app as the same user as Nginx (usually "http" or "www-data").
+**Warning: Never run web apps as the root user!**
+
+For best results, run the web app as the same user as Nginx (usually "http" or "www-data").
