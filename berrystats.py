@@ -6,20 +6,14 @@ import flask
 import time
 
 
-def update_counter(count):
-    with open("data/counter", "w") as counter:
-        counter.write(count)
-
 def increment_counter():
     try:
         existing_count = open("data/counter", "r").read()
-        if existing_count == "":
-            count = 1
-        else:
-            count = int(existing_count) + 1
+        count = int(existing_count) + 1
     except IOError:
         count = 1
-    update_counter(str(count))
+    with open("data/counter", "w") as counter:
+        counter.write(str(count))
     return count
 
 def get_distribution():
@@ -150,9 +144,6 @@ if __name__ == '__main__':
     for directory in ["data", "logs"]:
         if not os.path.exists(directory):
             os.makedirs(directory)
-
-    # reset the counter
-    update_counter("0")
 
     # run the web app
     app.run(debug=True)
