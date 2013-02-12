@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
 import os
-import datetime
 import flask
 import time
 
@@ -82,8 +81,6 @@ app = flask.Flask(__name__)
 @app.route('/')
 def home_page():
     counter = increment_counter()
-
-    global _distribution, _kernel
 
     now = time.strftime("%Y-%m-%d %H:%M:%S")
     uptime = get_uptime()
