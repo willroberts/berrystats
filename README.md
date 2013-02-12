@@ -6,15 +6,12 @@ This was developed on Arch, but should run on any recent Linux distribution.
 
 **Requires: Nginx, Python 2, Flask, Jinja 2, Flup, and about 10MB of RAM**
 
-Home page:
+Screenshots
+-----------
 
 ![Home page](http://i.imgur.com/YRpHNBc.png)
 
-System page:
-
 ![System page](http://i.imgur.com/qvnEic6.png)
-
-About page:
 
 ![About page](http://i.imgur.com/GUmsVX7.png)
 
