@@ -45,7 +45,7 @@ Debian:
 
     $ git clone https://github.com/willroberts/berrystats.git
 
-**Manually include the options below in your /etc/nginx/nginx.conf.**
+**Manually include the options below in your /etc/nginx/nginx.conf:**
 
     http {
         limit_req_zone $binary_remote_addr zone=one:10m rate=4r/s;
