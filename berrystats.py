@@ -1,28 +1,10 @@
 #!/usr/bin/env python
 
 import os
+import datetime
+import flask
+import time
 
-from datetime import datetime
-from flask import Flask, render_template, send_file
-from time import strftime
-
-
-"""
-def log(line):
-    log = open("logs/requests.log", "a")
-    log.write(line)
-    log.write("\n")
-    log.close()
-
-def start_timer():
-    timer = datetime.now()
-    return timer
-
-def stop_timer(timer):
-    now = datetime.now()
-    milliseconds = (now - timer).total_seconds() * 1000
-    return milliseconds
-"""
 
 def update_counter(count):
     with open("data/counter", "w") as counter:
@@ -94,7 +76,10 @@ def get_disk_usage():
     gb_total = mb_total / 1024
     return "%.1fg of %.1fg" % (gb_used, gb_total)
 
-app = Flask(__name__)
+# instantiate flask
+app = flask.Flask(__name__)
+
+# set up routing
 @app.route('/')
 def home_page():
 
@@ -102,14 +87,14 @@ def home_page():
     counter = increment_counter()
 
     # get general data
-    time = strftime("%Y-%m-%d %H:%M:%S")
+    now = time.strftime("%Y-%m-%d %H:%M:%S")
     distribution = get_distribution()
     kernel = get_kernel_version()
     uptime = get_uptime()
 
     # pass the content to the template renderer
-    content = render_template("home_page.html",
-        time=time,
+    content = flask.render_template("home_page.html",
+        time=now,
         distribution=distribution,
         kernel=kernel,
         uptime=uptime,
@@ -129,12 +114,14 @@ def system_page():
     memory, swap = get_memory_usage()
     disk = get_disk_usage()
 
-    content = render_template("system_page.html",
+    # pass the content to the template renderer
+    content = flask.render_template("system_page.html",
         load=load,
         memory=memory,
         swap=swap,
         disk=disk)
 
+    # return the content to the fcgi socket
     return content
 
 @app.route("/about")
@@ -143,17 +130,19 @@ def about_page():
     # increment the counter
     counter = increment_counter()
 
-    content = render_template("about_page.html")
+    # pass the content to the template renderer
+    content = flask.render_template("about_page.html")
 
+    # return the content to the fcgi socket
     return content
 
 @app.route("/style.css")
 def style_page():
-    return send_file("templates/style.css", mimetype="text/css")
+    return flask.send_file("templates/style.css", mimetype="text/css")
 
 @app.route("/berry.png")
 def berry_image():
-    return send_file("templates/berry.png", mimetype="image/png")
+    return flask.send_file("templates/berry.png", mimetype="image/png")
 
 if __name__ == '__main__':
 
