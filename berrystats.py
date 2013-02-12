@@ -17,7 +17,7 @@ def increment_counter():
 
 def get_distribution():
     with open("/etc/issue", "r") as issue:
-        return issue.read().strip().split("\\")[0].strip()
+        return issue.read().split("\\")[0].strip()
 
 def get_kernel_version():
     with open("/proc/sys/kernel/osrelease", "r") as kernel_version:
