@@ -1,22 +1,19 @@
 #!/usr/bin/env python
 
-print("Importing os...")
-import os
+print("Starting...")
 
-print("Importing WSGIServer from flup.server.fcgi...")
+print("Importing required libraries...")
+import os
 from flup.server.fcgi import WSGIServer
 
-print("Setting up required directories...")
+print("Creating required directories...")
 for directory in ["data", "logs"]:
     if not os.path.exists(directory):
         os.makedirs(directory)
 
-print("Importing app from berrystats...")
-from berrystats import app
+print("Importing berrystats...")
+import berrystats
 
 if __name__ == "__main__":
-
     print("Started!")
-
-    # run the app
-    WSGIServer(app, bindAddress="/srv/http/berrystats/data/flup.sock").run()
+    WSGIServer(berrystats.app, bindAddress="/srv/http/berrystats/data/flup.sock").run()
