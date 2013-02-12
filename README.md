@@ -6,9 +6,9 @@ This was developed on Arch, but should run on any recent Linux distribution.
 
 **Requires: Nginx, Python 2, Flask, Jinja 2, Flup, and about 11MB of RAM**
 
-Home page (now shows kernel version as well):
+Home page
 
-![Home page](http://i.imgur.com/yINDoM4.png)
+![Home page](http://i.imgur.com/YRpHNBc.png)
 
 System page
 
