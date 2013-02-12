@@ -5,7 +5,13 @@ h1 { color: #d34347;
     font: 28px "Source Sans Pro";
     margin: 0px;
     text-align: center;
-    line-height: 59px }
+    line-height: 30px }
+
+h2 { color: #d34347;
+    font: 14px "Source Sans Pro";
+    margin: 0px;
+    text-align: center;
+    }
 
 a { color: #d34347;
     text-decoration: none;

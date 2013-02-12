@@ -2,18 +2,20 @@
 <html>
  <head>
   <title>berrystats</title>
+
   <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet" type="text/css" />
   <link href="style.css" rel="stylesheet" type="text/css" />
+
   <!-- http://t.co/dKP3o1e -->
   <meta name="HandheldFriendly" content="True">
   <meta name="MobileOptimized" content="320">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
  </head>
 
  <body>
-  <div id="title">
-   <h1>berrystats</h1>
-  </div>
+
+  <div id="title"></div>
 
   <div id="nav">
    <a href="/">home</a>
@@ -21,7 +23,10 @@
    <a class="active" href="/about">about</a>
   </div>
 
-  <div id="logo"></div>
+  <div id="logo">
+   <h1>berrystats</h1>
+   <h2>{{ version }}</h2>
+  </div>
 
   <div id="body">
    <p>berrystats is a tiny Flask/Jinja2 web app to report various stats about a Raspberry Pi running Linux.</p>

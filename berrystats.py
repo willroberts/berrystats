@@ -70,9 +70,11 @@ def get_disk_usage():
     return "%.1fg of %.1fg" % (gb_used, gb_total)
 
 # instantiate global variables
-# these two fields will never change, so we only poll them once instead of on every request
+# these fields won't change between requests,
+# so we only poll them once instead of on every request.
 _distribution = get_distribution()
 _kernel = get_kernel_version()
+_version = "v0.2"
 
 # instantiate flask
 app = flask.Flask(__name__)
@@ -86,6 +88,7 @@ def home_page():
     uptime = get_uptime()
 
     content = flask.render_template("home_page.html",
+        version=_version,
         time=now,
         distribution=_distribution,
         kernel=_kernel,
@@ -103,6 +106,7 @@ def system_page():
     disk = get_disk_usage()
 
     content = flask.render_template("system_page.html",
+        version=_version,
         load=load,
         memory=memory,
         swap=swap,
@@ -113,15 +117,13 @@ def system_page():
 @app.route("/about")
 def about_page():
     counter = increment_counter()
-    return flask.send_file("templates/about_page.html", mimetype="text/html")
+    content = flask.render_template("about_page.html",
+        version=_version)
+    return content
 
 @app.route("/style.css")
 def style_page():
     return flask.send_file("templates/style.css", mimetype="text/css")
-
-@app.route("/berry.png")
-def berry_image():
-    return flask.send_file("templates/berry.png", mimetype="image/png")
 
 if __name__ == '__main__':
 
