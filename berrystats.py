@@ -42,7 +42,7 @@ def get_memory_usage():
         memory_entries = memory.read().strip().split("\n")
     memory_data = {}
     for entry in memory_entries:
-        if "Total" or "Free" in entry:
+        if any(word in entry for word in ("Total", "Free")):
             fields = entry.split()
             key = fields[0][:-1]
             val = fields[1]
