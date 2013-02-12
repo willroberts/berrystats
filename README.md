@@ -60,7 +60,7 @@ Debian:
         }
         server {
             listen 8000;
-            root /srv/http/flask/;
+            root /srv/http/berrystats/;
             server_name localhost;
             access_log /var/log/nginx/flask_access.log;
             error_log /var/log/nginx/flask_error.log;
@@ -69,7 +69,7 @@ Debian:
                 include fastcgi_params;
                 fastcgi_param PATH_INFO $fastcgi_script_name;
                 fastcgi_param SCRIPT_NAME "";
-                fastcgi_pass unix:/srv/http/flask/data/flup.sock;
+                fastcgi_pass unix:/srv/http/berrystats/data/flup.sock;
             }
         }
     }
