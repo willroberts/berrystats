@@ -8,15 +8,15 @@ This was developed on Arch, but should run on any recent Linux distribution.
 
 Home page (now shows kernel version as well):
 
-![Home page](https://raw.github.com/willroberts/berrystats/master/resources/preview_home.png)
+![Home page](http://i.imgur.com/yINDoM4.png)
 
 System page
 
-![System page](https://raw.github.com/willroberts/berrystats/master/resources/preview_system.png)
+![System page](http://i.imgur.com/qvnEic6.png)
 
 About page
 
-![About page](https://raw.github.com/willroberts/berrystats/master/resources/preview_about.png)
+![About page](http://i.imgur.com/GUmsVX7.png)
 
 Installation
 ------------
@@ -45,7 +45,34 @@ Debian instructions:
 
     $ git clone https://github.com/willroberts/berrystats.git
 
-**Manually include the options from resources/nginx.conf in your /etc/nginx/nginx.conf.**
+**Manually include the options below in your /etc/nginx/nginx.conf.**
+
+    http {
+        limit_req_zone $binary_remote_addr zone=one:10m rate=4r/s;
+        server {
+            listen 80;
+            server_name your-domain.net;
+            location / {
+                proxy_pass http://localhost:8000;
+                proxy_set_header X-Real-IP $remote_addr;
+                limit_req zone=one burst=4;
+            }
+        }
+        server {
+            listen 8000;
+            root /srv/http/flask/;
+            server_name localhost;
+            access_log /var/log/nginx/flask_access.log;
+            error_log /var/log/nginx/flask_error.log;
+            location / { try_files $uri @app; }
+            location @app {
+                include fastcgi_params;
+                fastcgi_param PATH_INFO $fastcgi_script_name;
+                fastcgi_param SCRIPT_NAME "";
+                fastcgi_pass unix:/srv/http/flask/data/flup.sock;
+            }
+        }
+    }
 
 **Enable and start Nginx (Arch):**
 
