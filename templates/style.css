@@ -4,14 +4,9 @@ body { margin: 0;
 h1 { color: #d34347;
     font: 28px "Source Sans Pro";
     margin: 0px;
+    margin-top: 14px;
     text-align: center;
     line-height: 30px }
-
-h2 { color: #d34347;
-    font: 14px "Source Sans Pro";
-    margin: 0px;
-    text-align: center;
-    }
 
 a { color: #d34347;
     text-decoration: none;
@@ -34,7 +29,7 @@ p { margin: 0px }
 #nav { width: 576px;
     height: 64px; }
 
-#logo { width: 192px;
+#spacer { width: 192px;
     height: 96px;
     float: left;
     clear: both;
