@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 
-import os
 import flask
+import logging
+import os
 import time
 
 
@@ -69,6 +70,25 @@ def get_disk_usage():
     gb_total = mb_total / 1024
     return "%.1fg of %.1fg" % (gb_used, gb_total)
 
+def get_timestamp():
+    return time.strftime("%Y-%m-%d %H:%M:%S")
+
+def get_user_addr():
+    try:
+        return flask.request.headers['X-Real-Ip']
+    except:
+        return ""
+
+def get_user_agent():
+    try:
+        return flask.request.headers['User-Agent']
+    except:
+        return ""
+
+def write_log_entry():
+    with open('logs/access.log', 'a') as log_file:
+        log_file.write('%s, %s, %s\n' % (get_timestamp(),get_user_addr(),get_user_agent()))
+
 # instantiate global variables
 # these fields won't change between requests,
 # so we only poll them once instead of on every request.
@@ -81,9 +101,11 @@ app = flask.Flask(__name__)
 # routing
 @app.route('/')
 def home_page():
-    counter = increment_counter()
 
-    now = time.strftime("%Y-%m-%d %H:%M:%S")
+    counter = increment_counter()
+    write_log_entry()
+
+    now = get_timestamp()
     uptime = get_uptime()
 
     content = flask.render_template("home_page.html",
@@ -97,7 +119,9 @@ def home_page():
 
 @app.route("/system")
 def system_page():
+
     counter = increment_counter()
+    write_log_entry()
 
     load = get_load()
     memory, swap = get_memory_usage()
@@ -113,7 +137,10 @@ def system_page():
 
 @app.route("/about")
 def about_page():
+
     counter = increment_counter()
+    write_log_entry()
+
     content = flask.render_template("about_page.html")
     return content
 
@@ -128,5 +155,11 @@ if __name__ == '__main__':
         if not os.path.exists(directory):
             os.makedirs(directory)
 
+    # set up logging
+    logging.basicConfig(filename='logs/debug.log',level=logging.DEBUG)
+
     # run the web app
-    app.run(debug=True)
+    try:
+        app.run(debug=True)
+    except Exception, e:
+        logging.exception(e)
