@@ -63,7 +63,7 @@ Debian:
             }
         }
         server {
-            listen 8000;
+            listen 127.0.0.1:8000;
             root /srv/http/berrystats/;
             server_name localhost;
             access_log /var/log/nginx/flask_access.log;
