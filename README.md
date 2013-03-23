@@ -21,10 +21,6 @@ About tab:
 
 ![home_page](http://i.imgur.com/OQircAv.png)
 
-To Do
------
-* Add logging for requests, system reports, etc.
-
 Installation
 ------------
 
@@ -62,6 +58,7 @@ Debian:
             location / {
                 proxy_pass http://localhost:8000;
                 proxy_set_header X-Real-IP $remote_addr;
+                proxy_set_header User-Agent $http_user_agent;
                 limit_req zone=one burst=4;
             }
         }
@@ -110,3 +107,7 @@ Debian:
 **Warning: Never run web apps as the root user!**
 
 For best results, run the web app as the same user as Nginx (usually "http" or "www-data").
+
+Logging
+-------
+The latest release now contains support for request and error logging. You can find these logs in the logs/ directory.
