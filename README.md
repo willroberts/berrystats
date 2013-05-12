@@ -28,21 +28,15 @@ Installation
 
 Arch:
 
-    $ sudo pacman -S nginx
-    $ sudo pacman -S python2
-    $ sudo pacman -S python2-distribute
+    $ sudo pacman -S git nginx python2 python2-distribute
     $ sudo easy_install-2.7 pip
-    $ sudo pip install flask # also installs jinja2
-    $ sudo pip install flup
+    $ sudo pip install flask flup
 
 Debian:
 
-    $ sudo apt-get install nginx
-    $ sudo apt-get install python
-    $ sudo apt-get install python-setuptools
+    $ sudo apt-get install git nginx python python-setuptools
     $ sudo easy_install pip
-    $ sudo pip install flask # also installs jinja2
-    $ sudo pip install flup
+    $ sudo pip install flask flup
 
 **Get the code:**
 
