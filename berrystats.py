@@ -16,13 +16,16 @@ def increment_counter():
         counter.write(str(count))
     return count
 
+
 def get_distribution():
     with open("/etc/issue", "r") as issue:
         return issue.read().split("\\")[0].strip()
 
+
 def get_kernel_version():
     with open("/proc/sys/kernel/osrelease", "r") as kernel_version:
         return kernel_version.read().strip()
+
 
 def get_uptime():
     with open("/proc/uptime", "r") as uptime:
@@ -31,12 +34,16 @@ def get_uptime():
         up_d, remainder = divmod(up_s, 86400)
         up_h, remainder = divmod(remainder, 3600)
         up_m, remainder = divmod(remainder, 60)
-        return "%d days, %d hours, %d minutes" % (int(up_d), int(up_h), int(up_m))
+        return "%d days, %d hours, %d minutes" % (int(up_d),
+                                                  int(up_h),
+                                                  int(up_m))
+
 
 def get_load():
     with open("/proc/loadavg", "r") as loadavg:
         load = loadavg.read().strip().split()
         return "%s %s %s" % (load[0], load[1], load[2])
+
 
 def get_memory_usage():
     with open("/proc/meminfo", "r") as memory:
@@ -61,6 +68,7 @@ def get_memory_usage():
     swap_string = "%dm of %dm" % (swap_used, swap_total)
     return memory_string, swap_string
 
+
 def get_disk_usage():
     disk_stats = os.statvfs("/")
     mb_total = float(disk_stats.f_blocks * disk_stats.f_bsize) / 1048576
@@ -70,8 +78,10 @@ def get_disk_usage():
     gb_total = mb_total / 1024
     return "%.1fg of %.1fg" % (gb_used, gb_total)
 
+
 def get_timestamp():
     return time.strftime("%Y-%m-%d %H:%M:%S")
+
 
 def get_user_addr():
     try:
@@ -79,15 +89,19 @@ def get_user_addr():
     except:
         return ""
 
+
 def get_user_agent():
     try:
         return flask.request.headers['User-Agent']
     except:
         return ""
 
+
 def write_log_entry():
     with open('logs/access.log', 'a') as log_file:
-        log_file.write('%s, %s, %s\n' % (get_timestamp(),get_user_addr(),get_user_agent()))
+        log_file.write('%s, %s, %s\n' % (get_timestamp(),
+                                         get_user_addr(),
+                                         get_user_agent()))
 
 # instantiate global variables
 # these fields won't change between requests,
@@ -97,6 +111,7 @@ _kernel = get_kernel_version()
 
 # instantiate flask
 app = flask.Flask(__name__)
+
 
 # routing
 @app.route('/')
@@ -109,13 +124,14 @@ def home_page():
     uptime = get_uptime()
 
     content = flask.render_template("home_page.html",
-        time=now,
-        distribution=_distribution,
-        kernel=_kernel,
-        uptime=uptime,
-        counter=counter)
+                                    time=now,
+                                    distribution=_distribution,
+                                    kernel=_kernel,
+                                    uptime=uptime,
+                                    counter=counter)
 
     return content
+
 
 @app.route("/system")
 def system_page():
@@ -128,12 +144,13 @@ def system_page():
     disk = get_disk_usage()
 
     content = flask.render_template("system_page.html",
-        load=load,
-        memory=memory,
-        swap=swap,
-        disk=disk)
+                                    load=load,
+                                    memory=memory,
+                                    swap=swap,
+                                    disk=disk)
 
     return content
+
 
 @app.route("/about")
 def about_page():
@@ -144,19 +161,22 @@ def about_page():
     content = flask.render_template("about_page.html")
     return content
 
+
 @app.route("/style.css")
 def style_page():
     return flask.send_file("templates/style.css", mimetype="text/css")
 
 if __name__ == '__main__':
 
-    # create required directories (only matters when berrystats.py is called directly)
+    # create required directories
+    # only matters when berrystats.py is called directly
     for directory in ["data", "logs"]:
         if not os.path.exists(directory):
             os.makedirs(directory)
 
     # set up logging
-    logging.basicConfig(filename='logs/debug.log',level=logging.DEBUG)
+    logging.basicConfig(filename='logs/debug.log',
+                        level=logging.DEBUG)
 
     # run the web app
     try:

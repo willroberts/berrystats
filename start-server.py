@@ -16,4 +16,5 @@ import berrystats
 
 if __name__ == "__main__":
     print("Started!")
-    WSGIServer(berrystats.app, bindAddress="/srv/http/berrystats/data/flup.sock").run()
+    WSGIServer(berrystats.app,
+               bindAddress="/srv/http/berrystats/data/flup.sock").run()
